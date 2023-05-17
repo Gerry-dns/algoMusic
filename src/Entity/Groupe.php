@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\GroupeRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Genre;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\GroupeRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: GroupeRepository::class)]
 class Groupe
@@ -18,13 +19,13 @@ class Groupe
     #[ORM\Column(length: 255)]
     private ?string $nomGroupe = null;
 
-    #[ORM\ManyToMany(targetEntity: genre::class, inversedBy: 'groupeGenre')]
+    #[ORM\ManyToMany(targetEntity: Genre::class, inversedBy: 'groupeGenre')]
     private Collection $genre;
 
-    #[ORM\ManyToMany(targetEntity: instrument::class, inversedBy: 'groupes')]
+    #[ORM\ManyToMany(targetEntity: Instrument::class, inversedBy: 'groupes')]
     private Collection $groupeInstruments;
 
-    #[ORM\ManyToMany(targetEntity: annee::class, inversedBy: 'groupes')]
+    #[ORM\ManyToMany(targetEntity: Annee::class, inversedBy: 'groupes')]
     private Collection $groupeAnnee;
 
     public function __construct()
@@ -83,7 +84,7 @@ class Groupe
         return $this->groupeInstruments;
     }
 
-    public function addGroupeInstrument(instrument $groupeInstrument): self
+    public function addGroupeInstrument(Instrument $groupeInstrument): self
     {
         if (!$this->groupeInstruments->contains($groupeInstrument)) {
             $this->groupeInstruments->add($groupeInstrument);
@@ -92,7 +93,7 @@ class Groupe
         return $this;
     }
 
-    public function removeGroupeInstrument(instrument $groupeInstrument): self
+    public function removeGroupeInstrument(Instrument $groupeInstrument): self
     {
         $this->groupeInstruments->removeElement($groupeInstrument);
 

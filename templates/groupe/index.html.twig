@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+
+<title>Hello GroupeController!</title>
+
+{% block body %}
+    <div class="container">
+        <h1>Les groupes</h1>
+
+        {% for groupe in groupes %}
+            <div>
+                <p>{{groupe.nomGroupe}}</p>
+            </div>
+            
+        {% endfor %}
+    </div>
+{% endblock %}
